@@ -1,0 +1,43 @@
+*** Settings ***
+Library           json
+Library           requests
+Variables         data.py
+Variables         data2.py
+Library           RequestsLibrary
+Library           Collections
+Library           test.py
+Variables         variable_txt.py
+
+*** Keywords ***
+dubbo获取所有变量得到实际结果
+    [Arguments]    ${bianliang}
+    ${url}    Set Variable    ${data2['server_ip_port'][0]}:${data2['server_ip_port'][1]}/dubbo-rest/dubbo/api?idcard=110000000000000015&mobile=13000000008
+    ${heads}    Create Dictionary    Content-Type=application/json
+    @{list}    Create List
+    ${resp}    requests.Get    ${url}    headers=${heads}
+    ${content}    Loads    ${resp.content}
+    ${resurt}    Get Target Value    ${bianliang}    ${content}    ${list}
+    ${scope}    Get From Dictionary    ${resurt[0]}    scope
+    ${value}    Get From Dictionary    ${resurt[0]}    value
+    ${varible_value}    Set Variable    {${bianliang}="scope":${scope},"value":${value}}
+    [Return]    ${varible_value}
+
+获取变量名list
+    [Arguments]    ${list_valible}
+    : FOR    ${i}    IN    ${list_valible}
+    \    ${j}    Get Length    ${i}
+    @{list_name}    Create List
+    : FOR    ${m}    IN RANGE    ${j}
+    \    log    ${i[${m}]}
+    \    ${name}    Get From Dictionary    ${i[${m}]}    name
+    \    log    name
+    \    Append To List    ${list_name}    ${name}
+    \    log    ${list_name}
+    [Return]    ${list_name}
+
+组装变量得到预期结果
+    [Arguments]    ${body}    ${i}    ${bianliang}
+    ${scope}    Get From Dictionary    ${variable_txt['${body}'][${i}]}    scope
+    ${value}    Get From Dictionary    ${variable_txt['${body}'][${i}]}    value
+    ${varible_value}    Set Variable    {${bianliang}="scope":${scope},"value":${value}}
+    [Return]    ${varible_value}
