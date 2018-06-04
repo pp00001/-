@@ -1,0 +1,159 @@
+*** Settings ***
+Resource          res_interface.txt
+
+*** Test Cases ***
+银行卡三要素验证-发起请求
+    [Documentation]    银行卡三要素验证
+    ...    接口地址：http://10.0.3.123:3000/public-doc/data-cloud-doc/wiki/TianXing.threeElementValidate
+    ${url}    Set Variable    http://10.0.4.147:8080/dubbo-rest/dubbo/send
+    ${dict}=    Create Dictionary    topic=MQ_TOPIC_KAFKA_PROFILE_SYSTEM    message={"dataSource":"001","dataType":"TianXing","bizType":"threeElementValidate","userIp":"10.10.10.10","collectTime":"1434564455445","sessionId":"1434564455445","data":{"id_card":"110000000000000015","phone_no":"13000000008","request":"","flag":"S","code":"200","msg":"请求成功","response":{"success":true,"requestOrder":"b97b06bdd38e4d4aa5a8ac9fa2092561","data":{"name":"盛可歆","identityCard":"510105199202221265","accountNO":"6217863100001730785","checkStatus":"SAME","result":"验证成功"}}}}
+    ${heads}    Create Dictionary    Content-Type=application/json
+    ${resp}    requests.Post    ${url}    ${dict}    ${heads}
+    log    ---------------------------------------------------------------接口请求成功：${resp.content}--------------------------------------------------
+    \    log    ${empty}
+    \    log    ${empty}
+
+收入能力查询-发起请求
+    [Documentation]    收入能力查询
+    ...    接口地址：http://10.0.3.123:3000/public-doc/data-cloud-doc/wiki/TianXing.income
+    ${url}    Set Variable    http://10.0.4.147:8080/dubbo-rest/dubbo/send
+    ${dict}=    Create Dictionary    topic=MQ_TOPIC_KAFKA_PROFILE_SYSTEM    message={"dataSource":"001","dataType":"TianXing","bizType":"income","userIp":"10.10.10.10","collectTime":"1434564455445","sessionId":"1434564455445","data":{"id_card":"110882198812130022","phone_no":"13016026312","request":"","flag":"S","code":"200","msg":"请求成功","response":{"success":true,"requestOrder":"f94d26dfcdc24938aa42347a5f7ed439","data":{"name":"骆凉倩","identityCard":"110882198812130022","incomeGrade":"B","incomeInterval":"(3000,5000]"}}}}
+    ${heads}    Create Dictionary    Content-Type=application/json
+    ${resp}    requests.Post    ${url}    ${dict}    ${heads}
+    log    ---------------------------------------------------------------接口请求成功：${resp.content}--------------------------------------------------
+    \    log    ${empty}
+    \    log    ${empty}
+
+不良信息-发起请求
+    [Documentation]    天行不良信息
+    ...    地址：http://10.0.3.123:3000/public-doc/data-cloud-doc/wiki/TianXing.getNegativeInfoData
+    ${url}    Set Variable    http://10.0.4.147:8080/dubbo-rest/dubbo/send
+    ${dict}=    Create Dictionary    topic=MQ_TOPIC_KAFKA_PROFILE_SYSTEM    message={"dataSource":"001","dataType":"TianXing","bizType":"getNegativeInfoData","userIp":"10.10.10.10","collectTime":"1434564455445","sessionId":"1434564455445","data":{"id_card":"110882198812130022","phone_no":"13016026312","request":"","flag":"S","code":"200","msg":"请求成功","response":{"success":true,"data":{"idCard":"342426197809174230","name":"刘青松","drugCompared":"一致","crime":"false","drug":"false","drugRelated":"一致","drugRelatedCompared":"一致","crimeCompared":"一致","escapeCompared":"一致","status":"NO_DATA"}}}}
+    ${heads}    Create Dictionary    Content-Type=application/json
+    ${resp}    requests.Post    ${url}    ${dict}    ${heads}
+    log    ---------------------------------------------------------------接口请求成功：${resp.content}--------------------------------------------------
+    \    log    ${empty}
+    \    log    ${empty}
+
+个人工商信息-发起请求
+    [Documentation]    天行个人工商信息
+    ...    地址：http://10.0.3.123:3000/public-doc/data-cloud-doc/wiki/TianXing.getMemberData
+    ${url}    Set Variable    http://10.0.4.147:8080/dubbo-rest/dubbo/send
+    ${dict}=    Create Dictionary    topic=MQ_TOPIC_KAFKA_PROFILE_SYSTEM    message={"dataSource":"001","dataType":"TianXing","bizType":"getMemberData","userIp":"10.10.10.10","collectTime":"1434564455445","sessionId":"1434564455445","data":{"id_card":"110000000000000015","phone_no":"13000000008","request":"","flag":"S","code":"200","msg":"请求成功","response":{"corporateManagers":[],"corporateShareholders":[],"caseInfos":[],"punishBreaks":[],"punished":[],"key":"210381197509111316","status":"EXIST","corporates":[{"regNo":"210381600782564","entType":"个体","regCapCur":"人民币元","ryName":"代海军（中强运输）","entName":"","regCap":"0.002545","entStatus":"注销"},{"regNo":"210381600425588","entType":"个体","regCapCur":"人民币元","ryName":"代海军","entName":"海城市辽C1169H-169F挂","regCap":"0.003500","entStatus":"注销"},{"regNo":"210381600729911","entType":"个体","regCapCur":"人民币元","ryName":"代海军(嘉城运输）","entName":"海城市辽C1169H-169F挂","regCap":"0.001200","entStatus":"注销"}]}}}
+    ${heads}    Create Dictionary    Content-Type=application/json
+    ${resp}    requests.Post    ${url}    ${dict}    ${heads}
+    log    ---------------------------------------------------------------接口请求成功：${resp.content}--------------------------------------------------
+    \    log    ${empty}
+    \    log    ${empty}
+
+实名认证-发起请求
+    [Documentation]    天行实名认证
+    ...    地址：http://10.0.3.123:3000/public-doc/data-cloud-doc/wiki/TianXing.getIdCardVerifyData
+    ${url}    Set Variable    http://10.0.4.147:8080/dubbo-rest/dubbo/send
+    ${dict}=    Create Dictionary    topic=MQ_TOPIC_KAFKA_PROFILE_SYSTEM    message={"dataSource":"001","dataType":"TianXing","bizType":"getIdCardVerifyData","userIp":"10.10.10.10","collectTime":"1434564455445","sessionId":"1434564455445","data":{"id_card":"110000000000000015","phone_no":"13000000008","request":"","flag":"S","code":"200","msg":"请求成功","response":{"name":"刘青松","compareStatus":"SAME","compareStatusDesc":"一致","identityCard":"342426197809174230"}}}
+    ${heads}    Create Dictionary    Content-Type=application/json
+    ${resp}    requests.Post    ${url}    ${dict}    ${heads}
+    log    ---------------------------------------------------------------接口请求成功：${resp.content}--------------------------------------------------
+    \    log    ${empty}
+    \    log    ${empty}
+
+银联四要素-发起请求
+    [Documentation]    天行银行卡四要素验证
+    ...    地址：http://10.0.3.123:3000/public-doc/data-cloud-doc/wiki/TianXing.fourElementValidate
+    ${url}    Set Variable    http://10.0.4.147:8080/dubbo-rest/dubbo/send
+    ${dict}=    Create Dictionary    topic=MQ_TOPIC_KAFKA_PROFILE_SYSTEM    message={"dataSource":"001","dataType":"TianXing","bizType":"fourElementValidate","userIp":"10.10.10.10","collectTime":"1434564455445","sessionId":"1434564455445","data":{"id_card":"110882198812130022","phone_no":"13016026312","request":"","flag":"S","code":"200","msg":"请求成功","response":{"success":true,"data":{"name":"骆凉倩","identityCard":"370103197607017176","accountNO":"6228480402564890018","bankPreMobile":"18656271207","checkStatus":"SAME","result":"验证成功,信息一致"}}}}
+    ${heads}    Create Dictionary    Content-Type=application/json
+    ${resp}    requests.Post    ${url}    ${dict}    ${heads}
+    log    ---------------------------------------------------------------接口请求成功：${resp.content}--------------------------------------------------
+    \    log    ${empty}
+    \    log    ${empty}
+
+银行卡三要素验证-验证dubbo接口变量
+    ${reponse}    获取变量名list    ${variable_txt['TianXing_threeElementValidate']}
+    log    ${reponse}
+    ${length}    Get Length    ${reponse}
+    log    ${length}
+    : FOR    ${j}    IN RANGE    ${length}
+    \    ${Assemble}    组装变量得到预期结果    TianXing_threeElementValidate    ${j}    ${reponse[${j}]}
+    \    log    ${Assemble}
+    \    ${Assemble1}    dubbo获取所有变量得到实际结果    ${reponse[${j}]}
+    \    log    ---------------------------------------------正在校验第“${j}”变量结果---------------------------
+    \    log    ${Assemble1}
+    \    Should Be Equal    ${Assemble1}    ${Assemble}    message=变量结果不一致
+    \    log    ---------------------------------------------变量：${reponse[${j}]}---》校验完成且正确--------------------------------------------------
+    log    --------------------------------------------------------------------------------------------------------------银行卡三要素验证变量接口：合计“${length}”个已全部测试完毕-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+收入能力查询-验证dubbo接口变量
+    ${reponse}    获取变量名list    ${variable_txt['TianXing_income']}
+    log    ${reponse}
+    ${length}    Get Length    ${reponse}
+    log    ${length}
+    : FOR    ${j}    IN RANGE    ${length}
+    \    ${Assemble}    组装变量得到预期结果    TianXing_income    ${j}    ${reponse[${j}]}
+    \    log    ${Assemble}
+    \    ${Assemble1}    dubbo获取所有变量得到实际结果    ${reponse[${j}]}
+    \    log    ---------------------------------------------正在校验第“${j}”变量结果---------------------------
+    \    log    ${Assemble1}
+    \    Should Be Equal    ${Assemble1}    ${Assemble}    message=变量结果不一致
+    \    log    ---------------------------------------------变量：${reponse[${j}]}---》校验完成且正确--------------------------------------------------
+    log    --------------------------------------------------------------------------------------------------------------收入能力查询变量接口：合计“${length}”个已全部测试完毕-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+不良信息-验证dubbo接口变量
+    ${reponse}    获取变量名list    ${variable_txt['TianXing_getNegativeInfoData']}
+    log    ${reponse}
+    ${length}    Get Length    ${reponse}
+    log    ${length}
+    : FOR    ${j}    IN RANGE    ${length}
+    \    ${Assemble}    组装变量得到预期结果    TianXing_getNegativeInfoData    ${j}    ${reponse[${j}]}
+    \    log    ${Assemble}
+    \    ${Assemble1}    dubbo获取所有变量得到实际结果    ${reponse[${j}]}
+    \    log    ---------------------------------------------正在校验第“${j}”变量结果---------------------------
+    \    log    ${Assemble1}
+    \    Should Be Equal    ${Assemble1}    ${Assemble}    message=变量结果不一致
+    \    log    ---------------------------------------------变量：${reponse[${j}]}---》校验完成且正确--------------------------------------------------
+    log    --------------------------------------------------------------------------------------------------------------不良信息变量接口：合计“${length}”个已全部测试完毕-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+个人工商信息-验证dubbo接口变量
+    ${reponse}    获取变量名list    ${variable_txt['TianXing_getMemberData']}
+    log    ${reponse}
+    ${length}    Get Length    ${reponse}
+    log    ${length}
+    : FOR    ${j}    IN RANGE    ${length}
+    \    ${Assemble}    组装变量得到预期结果    TianXing_getMemberData    ${j}    ${reponse[${j}]}
+    \    log    ${Assemble}
+    \    ${Assemble1}    dubbo获取所有变量得到实际结果    ${reponse[${j}]}
+    \    log    ---------------------------------------------正在校验第“${j}”变量结果---------------------------
+    \    log    ${Assemble1}
+    \    Should Be Equal    ${Assemble1}    ${Assemble}    message=变量结果不一致
+    \    log    ---------------------------------------------变量：${reponse[${j}]}---》校验完成且正确--------------------------------------------------
+    log    --------------------------------------------------------------------------------------------------------------个人工商信息变量接口：合计“${length}”个已全部测试完毕-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+实名认证-验证dubbo接口变量
+    ${reponse}    获取变量名list    ${variable_txt['TianXing_getIdCardVerifyData']}
+    log    ${reponse}
+    ${length}    Get Length    ${reponse}
+    log    ${length}
+    : FOR    ${j}    IN RANGE    ${length}
+    \    ${Assemble}    组装变量得到预期结果    TianXing_getIdCardVerifyData    ${j}    ${reponse[${j}]}
+    \    log    ${Assemble}
+    \    ${Assemble1}    dubbo获取所有变量得到实际结果    ${reponse[${j}]}
+    \    log    ---------------------------------------------正在校验第“${j}”变量结果---------------------------
+    \    log    ${Assemble1}
+    \    Should Be Equal    ${Assemble1}    ${Assemble}    message=变量结果不一致
+    \    log    ---------------------------------------------变量：${reponse[${j}]}---》校验完成且正确--------------------------------------------------
+    log    --------------------------------------------------------------------------------------------------------------实名认证变量接口：合计“${length}”个已全部测试完毕-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+银联四要素-验证dubbo接口变量
+    ${reponse}    获取变量名list    ${variable_txt['TianXing_fourElementValidate']}
+    log    ${reponse}
+    ${length}    Get Length    ${reponse}
+    log    ${length}
+    : FOR    ${j}    IN RANGE    ${length}
+    \    ${Assemble}    组装变量得到预期结果    TianXing_fourElementValidate    ${j}    ${reponse[${j}]}
+    \    log    ${Assemble}
+    \    ${Assemble1}    dubbo获取所有变量得到实际结果    ${reponse[${j}]}
+    \    log    ---------------------------------------------正在校验第“${j}”变量结果---------------------------
+    \    log    ${Assemble1}
+    \    Should Be Equal    ${Assemble1}    ${Assemble}    message=变量结果不一致
+    \    log    ---------------------------------------------变量：${reponse[${j}]}---》校验完成且正确--------------------------------------------------
+    log    --------------------------------------------------------------------------------------------------------------银行四要素变量接口：合计“${length}”个已全部测试完毕-----------------------------------------------------------------------------------------------------------------------------------------------------------------

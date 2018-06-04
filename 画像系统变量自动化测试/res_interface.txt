@@ -7,6 +7,7 @@ Library           RequestsLibrary
 Library           Collections
 Library           test.py
 Variables         variable_txt.py
+Library           test2.py
 
 *** Keywords ***
 dubbo获取所有变量得到实际结果
@@ -38,6 +39,7 @@ dubbo获取所有变量得到实际结果
 组装变量得到预期结果
     [Arguments]    ${body}    ${i}    ${bianliang}
     ${scope}    Get From Dictionary    ${variable_txt['${body}'][${i}]}    scope
-    ${value}    Get From Dictionary    ${variable_txt['${body}'][${i}]}    value
+    ${value1}    Get From Dictionary    ${variable_txt['${body}'][${i}]}    value
+    ${value}    Gettab    ${value1}
     ${varible_value}    Set Variable    {${bianliang}="scope":${scope},"value":${value}}
     [Return]    ${varible_value}
