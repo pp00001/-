@@ -8,8 +8,8 @@ Resource          res_interface.txt
     ${heads}    Create Dictionary    Content-Type=application/json
     ${resp}    requests.Post    ${url}    ${dict}    ${heads}
     log    ---------------------------------------------------------------接口请求成功：${resp.content}--------------------------------------------------
-    \    log    ${empty}
-    \    log    ${empty}
+    log    ${empty}
+    log    ${empty}
 
 验证dubbo接口变量数据
     ${reponse}    获取变量名list    ${variable_txt['zhongchengxin_trareport']}

@@ -11,8 +11,8 @@ Resource          res_interface.txt
     ${resp}    requests.Post    ${url}    ${dict}    ${heads}
     #log    ${resp.content}
     log    ---------------------------------------------------------------接口请求成功：${resp.content}--------------------------------------------------
-    \    log    ${empty}
-    \    log    ${empty}
+    log    ${empty}
+    log    ${empty}
 
 验证dubbo接口变量数据
     [Documentation]    同盾多头规则详情
