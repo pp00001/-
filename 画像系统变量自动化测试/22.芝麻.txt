@@ -1,0 +1,9 @@
+*** Settings ***
+Resource          res_interface.txt
+
+*** Test Cases ***
+芝麻授权查询--发送请求
+    发起请求    { \ \ \ \ "dataSource":"001", \ \ \ \ "dataType":"Zhima", \ \ \ \ "bizType":"accreditQuery", \ \ \ \ "userIp":"10.10.10.10", \ \ \ \ "sessionId":"1434564455445", \ \ \ \ "data":{ \ \ \ \ \ \ \ \ "id_card":"110882198812130022", \ \ \ \ \ \ \ \ "phone_no":"13016026312", \ \ \ \ \ \ \ \ "flag":"S", \ \ \ \ \ \ \ \ "code":"200", \ \ \ \ \ \ \ \ "msg":"请求成功", \ \ \ \ \ \ \ \ "request":"", \ \ \ \ \ \ \ \ "response":{ \ \ \ \ \ \ \ \ \ \ \ \ "retCode":"A00", \ \ \ \ \ \ \ \ \ \ \ \ "retData":{ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "createTime":1504751881898, \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "score":"666", \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "sid":"1224346546" \ \ \ \ \ \ \ \ \ \ \ \ }, \ \ \ \ \ \ \ \ \ \ \ \ "retMessage":"已经授权", \ \ \ \ \ \ \ \ \ \ \ \ "success":"true" \ \ \ \ \ \ \ \ } \ \ \ \ } }
+
+芝麻授权查询---验证dubbo接口变量
+    验证变量    Zhima_accreditQuery

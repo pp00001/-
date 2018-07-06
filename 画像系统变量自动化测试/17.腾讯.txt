@@ -1,0 +1,9 @@
+*** Settings ***
+Resource          res_interface.txt
+
+*** Test Cases ***
+腾讯反欺诈--发送请求
+    发起请求    {"dataSource":"001","dataType":"tencent","bizType":"tecentAntiFraud","userIp":"10.10.10.10","sessionId":"1434564455445","data":{"id_card":"110000000000000015","phone_no":"13000000008","flag":"S","code":"200","msg":"请求成功","request":"","response":{"code":0,"codeDesc":"success","message":"OK","riskScore":90,"riskInfo":[{"riskCode":401},{"riskCode":403},{"riskCode":405},{"riskCode":407},{"riskCode":203}]}}}
+
+腾讯反欺诈---验证dubbo接口变量
+    验证变量    tencent_tencentAntiFraud

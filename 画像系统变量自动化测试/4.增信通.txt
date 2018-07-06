@@ -1,0 +1,29 @@
+*** Settings ***
+Resource          res_interface.txt
+
+*** Test Cases ***
+发起请求
+    [Documentation]    增信通获取房产验证数据
+    ...    地址：http://10.0.3.123:3000/public-doc/data-cloud-doc/wiki/zxt.propertyVerify
+    ${url}    Set Variable    http://10.0.4.147:8080/dubbo-rest/dubbo/send
+    ${dict}=    Create Dictionary    topic=MQ_TOPIC_KAFKA_PROFILE_SYSTEM    message={"dataSource":"001","dataType":"zxt","bizType":"propertyVerify","userIp":"10.10.10.10","collectTime":"1434564455445","sessionId":"1434564455445","data":{"id_card":"110000000000000015","phone_no":"13000000008","request":"","flag":"S","code":"200","msg":"请求成功","flowNo":"61adbe30f05d49a994feba553742d900","response":{"data":{"verify_result":"Y","last_time":"2017-10-30"}}}}
+    ${heads}    Create Dictionary    Content-Type=application/json
+    ${resp}    requests.Post    ${url}    ${dict}    ${heads}
+    log    ---------------------------------------------------------------接口请求成功：${resp.content}--------------------------------------------------
+    log    ${empty}
+    log    ${empty}
+
+验证dubbo接口变量数据
+    ${reponse}    获取变量名list    ${variable_txt['zxt_propertyVerify']}
+    log    ${reponse}
+    ${length}    Get Length    ${reponse}
+    log    ${length}
+    : FOR    ${j}    IN RANGE    ${length}
+    \    ${Assemble}    组装变量得到预期结果    zxt_propertyVerify    ${j}    ${reponse[${j}]}
+    \    log    ${Assemble}
+    \    ${Assemble1}    dubbo获取所有变量得到实际结果    ${reponse[${j}]}
+    \    log    ---------------------------------------------正在校验第“${j}”变量结果---------------------------
+    \    log    ${Assemble1}
+    \    Should Be Equal    ${Assemble1}    ${Assemble}    message=变量结果不一致
+    \    log    ---------------------------------------------变量：${reponse[${j}]}---》校验完成且正确--------------------------------------------------
+    log    --------------------------------------------------------------------------------------------------------------增信通变量接口：合计“${length}”个已全部测试完毕-----------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,55 @@
+*** Settings ***
+Resource          res_interface.txt
+
+*** Test Cases ***
+手机和身份认证-发起请求
+    [Documentation]    手机号码身份证号姓名验证
+    ...    地址：http://10.0.3.123:3000/public-doc/data-cloud-doc/wiki/geo.threeBaseData
+    ${url}    Set Variable    http://10.0.4.147:8080/dubbo-rest/dubbo/send
+    ${dict}=    Create Dictionary    topic=MQ_TOPIC_KAFKA_PROFILE_SYSTEM    message={"dataSource":"001","dataType":"geo","bizType":"threeBaseData","userIp":"10.10.10.10","collectTime":"1434564455445","sessionId":"1434564455445","data":{"id_card":"110000000000000015","phone_no":"13000000008","flag":"S","code":"200","msg":"请求成功","request":"","response":{"msg":"成功","code":"200","data":{"ISPNUM":{"province":"广东","city":"汕头","isp":"移动"},"RSL":[{"RS":{"code":"1","desc":"三维验证不一致"},"IFT":"B7"}],"ECL":[]}}}}
+    ${heads}    Create Dictionary    Content-Type=application/json
+    ${resp}    requests.Post    ${url}    ${dict}    ${heads}
+    log    ---------------------------------------------------------------接口请求成功：${resp.content}--------------------------------------------------
+    log    ${empty}
+    log    ${empty}
+
+手机和身份证验证-验证dubbo接口变量数据
+    ${reponse}    获取变量名list    ${variable_txt['geo_threeBaseData']}
+    log    ${reponse}
+    ${length}    Get Length    ${reponse}
+    log    ${length}
+    : FOR    ${j}    IN RANGE    ${length}
+    \    ${Assemble}    组装变量得到预期结果    geo_threeBaseData    ${j}    ${reponse[${j}]}
+    \    log    ${Assemble}
+    \    ${Assemble1}    dubbo获取所有变量得到实际结果    ${reponse[${j}]}
+    \    log    ---------------------------------------------正在校验第“${j}”变量结果---------------------------
+    \    log    ${Assemble1}
+    \    Should Be Equal    ${Assemble1}    ${Assemble}    message=变量结果不一致
+    \    log    ---------------------------------------------变量：${reponse[${j}]}---》校验完成且正确--------------------------------------------------
+    log    --------------------------------------------------------------------------------------------------------------集奥手机认证变量接口：合计“${length}”个已全部测试完毕-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+机号码在网时长-发起请求
+    [Documentation]    手机号码在网时长查询
+    ...    地址：http://10.0.3.123:3000/public-doc/data-cloud-doc/wiki/geo.mobileNumberOnlineTime
+    ${url}    Set Variable    http://10.0.4.147:8080/dubbo-rest/dubbo/send
+    ${dict}=    Create Dictionary    topic=MQ_TOPIC_KAFKA_PROFILE_SYSTEM    message={"dataSource":"001","dataType":"geo","bizType":"mobileNumberOnlineTime","userIp":"10.10.10.10","collectTime":"1434564455445","sessionId":"1434564455445","data":{"id_card":"110000000000000015","phone_no":"13000000008","flag":"S","code":"200","msg":"请求成功","request":"","response":{"msg":"成功","code":"200","data":{"ISPNUM":{"province":"广东","city":"汕头","isp":"移动"},"RSL":[{"RS":{"code":"1","desc":"(6,12]"},"IFT":"A3"}],"ECL":[]}}}}
+    ${heads}    Create Dictionary    Content-Type=application/json
+    ${resp}    requests.Post    ${url}    ${dict}    ${heads}
+    log    ---------------------------------------------------------------接口请求成功：${resp.content}--------------------------------------------------
+    log    ${empty}
+    log    ${empty}
+
+手机号码在线时长-验证dubbo接口变量数据
+    ${reponse}    获取变量名list    ${variable_txt['geo_mobileNumberOnlineTime']}
+    log    ${reponse}
+    ${length}    Get Length    ${reponse}
+    log    ${length}
+    : FOR    ${j}    IN RANGE    ${length}
+    \    ${Assemble}    组装变量得到预期结果    geo_mobileNumberOnlineTime    ${j}    ${reponse[${j}]}
+    \    log    ${Assemble}
+    \    ${Assemble1}    dubbo获取所有变量得到实际结果    ${reponse[${j}]}
+    \    log    ---------------------------------------------正在校验第“${j}”变量结果---------------------------
+    \    log    ${Assemble1}
+    \    Should Be Equal    ${Assemble1}    ${Assemble}    message=变量结果不一致
+    \    log    ---------------------------------------------变量：${reponse[${j}]}---》校验完成且正确--------------------------------------------------
+    log    --------------------------------------------------------------------------------------------------------------集奥在线时长变量接口：合计“${length}”个已全部测试完毕-----------------------------------------------------------------------------------------------------------------------------------------------------------------

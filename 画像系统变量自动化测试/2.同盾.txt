@@ -1,0 +1,34 @@
+*** Settings ***
+Resource          res_interface.txt
+
+*** Test Cases ***
+发起请求
+    [Documentation]    同盾多头规则详情
+    ...    地址：http://10.0.3.123:3000/public-doc/data-cloud-doc/wiki/TongDun.zhcnRuleDetail
+    ${url}    Set Variable    http://10.0.4.147:8080/dubbo-rest/dubbo/send
+    ${dict}    Create Dictionary    topic=MQ_TOPIC_KAFKA_PROFILE_SYSTEM    message={"collectTime":1528935015349,"bizType":"queryDecisionEngine","data":{"msg":"请求成功","phone_no":"13693085957","request":{"event_id":"Loan_android_20170829","black_box":"eyJpbnRlcnZhbF90aW1lIjo5MjUyNjAsIm9zIjoiYW5kcm9pZCIsInBhY2thZ2VzIjoiY29tLnJvbmd4aW4ud2VsbGxvYW5fNS4zLjAiLCJ0b2tlbl9pZCI6ImoyS2pcL0pQYVFNVGtlQ1BBWnNtVUFhbzFNazZ4d3FGOUJRZUxzdUdYUHU4dVQ5RkQ4NlBLcnhIZTBTd1R0TzY2d3h3dHlnTDlzY2J5MVwvcmxqVVlsZ0E9PSIsInByb2ZpbGVfdGltZSI6NDU1LCJ2ZXJzaW9uIjoiMy4wLjkifQ==","idCard":"211224197709150203","mobile":"13693085957","name":"郭红伟","ip_address":"222.168.183.202 "},"code":"200","response":"{\"final_decision\":\"Accept\",\"final_score\":0,\"hit_rules\":[{\"decision\":\"Accept\",\"id\":\"18612383\",\"name\":\"身份证命中中风险关注名单\",\"parentUuid\":\"167835f262244282be21b7bfbb87e24a\",\"score\":0,\"uuid\":\"0dc169f866ff447eb92ebe8502577b1e\"},{\"decision\":\"Accept\",\"id\":\"18612233\",\"name\":\"手机号命中中风险关注名单\",\"parentUuid\":\"7a3314a3dcf2477da2dd4ccdec5ce2e2\",\"score\":0,\"uuid\":\"02d4b28f59c5494c925d96b0dacc61fa\"},{\"decision\":\"Accept\",\"id\":\"18612653\",\"name\":\"7天内申请人在多个平台申请借款\",\"parentUuid\":\"\",\"score\":0,\"uuid\":\"70535ca8ae9b42eeb12dbea8933b290a\"},{\"decision\":\"Accept\",\"id\":\"18612663\",\"name\":\"1个月内申请人在多个平台申请借款\",\"parentUuid\":\"\",\"score\":0,\"uuid\":\"eb74b72e4ba94ebb9ff3aa18b3618a9c\"},{\"decision\":\"Accept\",\"id\":\"18612673\",\"name\":\"3个月内申请人在多个平台申请借款\",\"parentUuid\":\"\",\"score\":0,\"uuid\":\"96911d08a77541a2949515925b102174\"}],\"policy_name\":\"借款事件_安卓_20170829\",\"policy_set\":[{\"policy_decision\":\"Accept\",\"policy_mode\":\"Weighted\",\"policy_name\":\"欺诈行为_安卓\",\"policy_score\":0,\"policy_uuid\":\"8abeb6a183ac4356afb753e26938bd16\",\"risk_type\":\"applySuspicious\"},{\"hit_rules\":[{\"decision\":\"Accept\",\"id\":\"18612383\",\"name\":\"身份证命中中风险关注名单\",\"parentUuid\":\"167835f262244282be21b7bfbb87e24a\",\"score\":0,\"uuid\":\"0dc169f866ff447eb92ebe8502577b1e\"},{\"decision\":\"Accept\",\"id\":\"18612233\",\"name\":\"手机号命中中风险关注名单\",\"parentUuid\":\"7a3314a3dcf2477da2dd4ccdec5ce2e2\",\"score\":0,\"uuid\":\"02d4b28f59c5494c925d96b0dacc61fa\"},{\"decision\":\"Accept\",\"id\":\"18612653\",\"name\":\"7天内申请人在多个平台申请借款\",\"parentUuid\":\"\",\"score\":0,\"uuid\":\"70535ca8ae9b42eeb12dbea8933b290a\"},{\"decision\":\"Accept\",\"id\":\"18612663\",\"name\":\"1个月内申请人在多个平台申请借款\",\"parentUuid\":\"\",\"score\":0,\"uuid\":\"eb74b72e4ba94ebb9ff3aa18b3618a9c\"},{\"decision\":\"Accept\",\"id\":\"18612673\",\"name\":\"3个月内申请人在多个平台申请借款\",\"parentUuid\":\"\",\"score\":0,\"uuid\":\"96911d08a77541a2949515925b102174\"}],\"policy_decision\":\"Accept\",\"policy_mode\":\"Weighted\",\"policy_name\":\"STARK借款_安卓\",\"policy_score\":0,\"policy_uuid\":\"deb73f04ff904bf8a9262a5bd6f1ee11\",\"risk_type\":\"suspiciousLoan\"}],\"policy_set_name\":\"借款事件_安卓_20170829\",\"risk_type\":\"\",\"seq_id\":\"1528935015276054F47C81A1A2925029\",\"spend_time\":44,\"success\":true}\n","id_card":"211224197709150203","flowNo":"614af20973614110a3671045b4321bbd"},"dataType":"TongDun","timeline":{"timeToProfileEngine":1528935015349,"timeApiCallSend":1528935015141,"timeDataCloudReceive":1528935015166},"eventType":"verify","sessionId":"614af20973614110a3671045b4321bbd","dataSource":"001","productType":"fast_loan"}
+    ${heads}    Create Dictionary    Content-Type=application/json
+    ${resp}    requests.Post    ${url}    ${dict}    ${heads}
+    #log    ${resp.content}
+    log    ---------------------------------------------------------------接口请求成功：${resp.content}--------------------------------------------------
+    log    ${empty}
+    log    ${empty}
+
+验证dubbo接口变量数据
+    [Documentation]    同盾多头规则详情
+    ...    地址：http://10.0.3.123:3000/public-doc/data-cloud-doc/wiki/TongDun.zhcnRuleDetail
+    ${reponse}    获取变量名list    ${variable_txt["TongDun_queryDecisionEngine"]}
+    log    ${reponse}
+    ${length}    Get Length    ${reponse}
+    log    ${length}
+    : FOR    ${j}    IN RANGE    ${length}
+    \    ${Assemble}    组装变量得到预期结果    TongDun_queryDecisionEngine    ${j}    ${reponse[${j}]}
+    \    log    ${Assemble}
+    \    ${Assemble1}    dubbo获取所有变量得到实际结果    ${reponse[${j}]}
+    \    log    ---------------------------------------------正在校验第“${j}”变量结果---------------------------
+    \    log    ${Assemble1}
+    \    Should Be Equal    ${Assemble1}    ${Assemble}    message=变量结果不一致
+    \    log    ---------------------------------------------变量：${reponse[${j}]}---》校验完成且正确--------------------------------------------------
+    \    log    ${empty}
+    \    log    ${empty}
+    log    ---------------------------------------同盾多头规则详情变量接口：合计“${length}”个已全部测试完毕------------------------------------------------------
