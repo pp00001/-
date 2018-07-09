@@ -230,16 +230,11 @@ variable_txt= {
 	#09.国政通-自然人识别
 	"gzt_personIdentify":[
 	{"name":"GZT_Code","scope":1,"value":"200"},
-	{"name":"GZT_xdCheckresult","scope":1,"value":"1"},
-	{"name":"GZT_sdCheckresult","scope":1,"value":"1"},
-	{"name":"GZT_wfxwCheckresult","scope":1,"value":"1"},
-	{"name":"GZT_ztCheckresult","scope":1,"value":"1"},
-	{"name":"GZT_inputZt","scope":1,"value":"false"},
-	{"name":"GZT_inputWfxw","scope":1,"value":"true"},
-	{"name":"GZT_inputXd","scope":1,"value":"false"},
-	{"name":"GZT_inputSd","scope":1,"value":"false"},
-	{"name":"GZT_wfxw_caseTime","scope":1,"value":"[10,15)"},
-	{"name":"GZT_badinfor_code","scope":1,"value":"200"}
+	{"name":"GZT_inputZt","scope":1,"value":"2"},
+	{"name":"GZT_inputWfxw","scope":1,"value":"2"},
+	{"name":"GZT_inputXd","scope":1,"value":"1"},
+	{"name":"GZT_inputSd","scope":1,"value":"1"},
+	{"name":"GZT_wfxw_caseTime","scope":1,"value":"[5,10)"}
 	],
 	#10.集奥—手机号码身份证号姓名验证
 	"geo_threeBaseData":[
