@@ -13,7 +13,7 @@ variable_txt= {
 	{"name":"YiX_Apt_NumOthCorp","scope":1,"value":5.0},
 	{"name":"YiX_Apt_L5YTotalODLoanAmt","scope":1,"value":200.0},
 	{"name":"YiX_Last6Months_Num","scope":1,"value":7.0},
-	{"name":"YiX_LastY3_OtherLoanNum","scope":1,"value":3.0},
+	{"name":"YiX_LastY3_OtherLoanNum","scope":1,"value":2.0},
 	{"name":"yx_overdue_num_90days","scope":1,"value":1.010201009E9},
 	{"name":"YiX_Loan_Num","scope":1,"value":11.0},
 	{"name":"YiX_OverdueM3_Array","scope":1,"value":[5.0,55.0,555.0,5555.0,55555.0,555555.0,5555555.0,5.5555555E7,99999.0,1.01010101E9,111111.0]},
@@ -395,7 +395,7 @@ variable_txt= {
 	{"name":"BaiR_m6_id_nbank_oth_orgnum","scope":1,"value":"70"},
 	{"name":"BaiR_m6_id_nbank_tot_mons","scope":1,"value":"70"},
 	{"name":"BaiR_m6_id_nbank_avg_monnum","scope":1,"value":"80"},
-	{"name":"BaiR_m6_id_nbank_max_monnum","scope":1,"value":"80"},
+	{"name":"BaiR_m6_id_nbank_max_monnum","scope":1,"value":"82"},
 	{"name":"BaiR_m6_id_nbank_min_monnum","scope":1,"value":"48"},
 	{"name":"BaiR_m6_id_nbank_max_inteday","scope":1,"value":"80"},
 	{"name":"BaiR_m6_id_nbank_min_inteday","scope":1,"value":"18"},
@@ -601,7 +601,7 @@ variable_txt= {
 	#15.天行-银行卡三要素验证
 	"TianXing_threeElementValidate":[
 	{"name":"TianX_Bank3Check_Is","scope":1,"value":"一致"},
-	{"name":"TianX_Bank3Check_Code","scope":1,"value":"200"}
+	#{"name":"TianX_Bank3Check_Code","scope":1,"value":"200"}  未使用该变量
 	],
 	#16.天行-收入能力查询
 	"TianXing_income":[
@@ -622,7 +622,7 @@ variable_txt= {
 	],
 	#18.天行-个人工商信息
 	"TianXing_getMemberData":[
-	{"name":"tx_num_cancel_status","scope":1,"value":"1"},
+	{"name":"tx_num_cancel_status","scope":1,"value":"0.0"},
 	{"name":"tx_num_dishonest","scope":1,"value":"1"},
 	{"name":"tx_punish_history","scope":1,"value":"1"},
 	{"name":"tx_drive_status","scope":1,"value":"1"},
@@ -640,7 +640,7 @@ variable_txt= {
 	#20.天行-银联四要素
 	"TianXing_fourElementValidate":[
 	{"name":"TianX_Bank4Check_Is","scope":1,"value":"一致"},
-	{"name":"TianX_Bank4Check_Code","scope":1,"value":"200"}
+	#{"name":"TianX_Bank4Check_Code","scope":1,"value":"200"} 未使用该变量
 	],
 	#21.同盾-规则命中详情
 	"TongDun_queryDecisionEngine":[
@@ -1141,7 +1141,7 @@ variable_txt= {
 	],
 	#35.上海资信查询
 	"ZiXin_queryCreditInfo":[
-	{"name":"ZiX_Spical_12Months_Low_Num","scope":1,"value":"12.0"},
+	{"name":"ZiX_Spical_12Months_Low_Num","scope":1,"value":"11.0"},
 	{"name":"ZiX_Spical_6Months_Low_Num","scope":1,"value":"6.0"},
 	{"name":"ZiX_Spical_2Years_GuarantorReturn_Num","scope":1,"value":"18.0"},
 	{"name":"ZiX_Spical_2Years_ChargeDebt_Num","scope":1,"value":"9.0"},
